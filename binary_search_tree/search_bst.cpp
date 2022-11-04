@@ -71,3 +71,55 @@ int main() {
       goto up;
    return 0;
 }
+
+/***If its In-order and Post-order traversal is given then you have to traverse whole in-order list
+  linearly for searching root. It will take O(n^2) times.
+ * But the trick here is that, Since In-order traversal is sorted hence we can directly apply Binary search,
+ instead of performing the linear search, that reduces the time complexity to O(nlogn). So answer is O(nlogn).*/
+
+
+
+//another way to search in bst
+ #include<iostream>
+ using namespace std;
+
+ struct Node{
+   int data;
+   Node *left, *right;
+   Node(int val){
+      data = val;
+      left = NULL;
+      right = NULL;
+   }
+ };
+
+ Node* searchInBst(Node *root, int key){
+
+   if(root == NULL){
+      return NULL;
+   }
+   if(root->data == key){
+      return root;
+   }
+   if(root->data > key){
+      root->left = searchInBst(root->left, key);
+   }
+   return searchInBst(root->right, key);
+ }
+
+
+int main(){
+   Node *root = new Node(4);
+   root->left = new Node(2);
+   root->right = new Node(5);
+   root->left->left = new Node(1);
+   root->left->right = new Node(3);
+   root->right->right = new Node(6);
+
+if(searchInBst(root, 10) == NULL){
+   cout<<"Key doesn't exist"<<endl;
+}else
+{
+   cout<<"Key exists"<<endl;
+}   return 0;
+}
